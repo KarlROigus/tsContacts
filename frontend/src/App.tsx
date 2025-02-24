@@ -53,11 +53,31 @@ function App() {
     fetchContactTypes();
   }, []);
 
-  const personAddHandler = (name: string) => {
-    setPersons(prevPersons => 
-      [...prevPersons,
-      {id: Math.random(), name: name}])
-  }
+  const personAddHandler = async (name: string) => {
+    const newPerson = { name };
+  
+    try {
+      
+      const response = await fetch("http://localhost:3000/persons", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPerson),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to add person to backend");
+      }
+  
+      const addedPerson = await response.json(); 
+
+      setPersons((prevPersons) => [...prevPersons, addedPerson]);
+    } catch (error) {
+      console.error("Error adding person:", error);
+    }
+  };
+  
 
   const contactTypeAddHandler = (type: string) => {
     setContactTypes(prevContactTypes => 

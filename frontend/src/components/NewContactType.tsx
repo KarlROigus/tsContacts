@@ -1,28 +1,48 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 
 interface NewContactTypeProps {
-    onAddContactType: (type: string) => void;
+  onAddContactType: (type: string) => void;
 }
 
-const NewContactType: React.FC<NewContactTypeProps> = ( {onAddContactType }) => {
-    const typeInputRef = useRef<HTMLInputElement>(null);
+const NewContactType: React.FC<NewContactTypeProps> = ({ onAddContactType }) => {
+  const typeInputRef = useRef<HTMLInputElement>(null);
 
-    const typeSubmitHandler = (event: React.FormEvent) => {
-        event.preventDefault();
+  const typeSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
 
-        const enteredName = typeInputRef.current!.value;
+    const enteredType = typeInputRef.current!.value;
 
-        onAddContactType(enteredName);
+    onAddContactType(enteredType);
+  };
 
-    };
-
-    return <form onSubmit={typeSubmitHandler}>
-        <div>
-            <label htmlFor="contact-type-name">Contact Type Name:</label>
-            <input type="text" id="contact-type-name" ref={typeInputRef}/>
-        </div>
-        <button type="submit">ADD CONTACT TYPE</button>
+  return (
+    <form
+      onSubmit={typeSubmitHandler}
+      className="mb-4 flex items-center space-x-2"
+    >
+      <div className="flex flex-col gap-2">
+        <label
+          htmlFor="contact-type-name"
+          className="text-lg font-medium mb-1"
+        >
+          Contact Type Name:
+        </label>
+        <input
+          type="text"
+          id="contact-type-name"
+          ref={typeInputRef}
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter contact type.."
+        />
+        <button
+          type="submit"
+          className="p-2 bg-cyan-500 text-white rounded-md hover:bg-cyan-700 focus:outline-none"
+        >
+          Add Contact Type
+        </button>
+      </div>
     </form>
-}
+  );
+};
 
-export default NewContactType
+export default NewContactType;
