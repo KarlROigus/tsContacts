@@ -9,7 +9,7 @@ export const createPerson: RequestHandler = (req, res, next) => {
 
     const name = (req.body as {name: string}).name;
 
-    const newPerson = new Person(Math.random().toString(), name);
+    const newPerson = new Person(Math.random(), name);
 
     PERSONS.push(newPerson);
 

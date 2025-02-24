@@ -3,7 +3,10 @@ import ContactTypeList from './components/ContactTypeList';
 import { useState, useEffect } from 'react';
 import { Person } from './models/Person';
 import { ContactType } from './models/ContactType';
+import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './index.css'
+
 
 
 function App() {
@@ -27,8 +30,27 @@ function App() {
         console.error("Error fetching persons:", error);
       }
     };
-
     fetchPersons();
+  }, []);
+
+  useEffect(() => {
+    const fetchContactTypes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/contacttypes');
+        if (!response.ok) throw new Error('Failed to fetch contact types');
+
+        const data = await response.json();
+
+        const contactTypeList: ContactType[] = data.contactTypes;
+
+        setContactTypes(contactTypeList);
+      } catch (error) {
+        console.error("Error fetching contacttypes: ", error);
+      }
+    
+    }
+
+    fetchContactTypes();
   }, []);
 
   const personAddHandler = (name: string) => {
@@ -45,6 +67,7 @@ function App() {
 
   return (
     <Router>
+      <Navbar />
       <div className="App">
         <Routes>
           <Route

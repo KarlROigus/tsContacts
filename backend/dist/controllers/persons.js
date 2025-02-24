@@ -9,7 +9,7 @@ const connection_1 = __importDefault(require("../connection/connection"));
 const PERSONS = [];
 const createPerson = (req, res, next) => {
     const name = req.body.name;
-    const newPerson = new person_1.Person(Math.random().toString(), name);
+    const newPerson = new person_1.Person(Math.random(), name);
     PERSONS.push(newPerson);
     console.log(PERSONS);
     res.status(201).json({
