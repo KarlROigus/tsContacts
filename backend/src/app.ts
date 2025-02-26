@@ -2,6 +2,7 @@ import express from 'express';
 import {json} from 'body-parser'
 import personsRoutes from './routes/persons'
 import contactTypeRoutes from './routes/contacttypes'
+import contactsRoutes from './routes/contacts'
 import pool from './connection/connection';
 import cors from "cors";
 
@@ -20,6 +21,7 @@ app.get("/", async (req, res) => {
 
 app.use('/persons', personsRoutes);
 app.use('/contacttypes', contactTypeRoutes);
+app.use('/contacts', contactsRoutes)
 
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {

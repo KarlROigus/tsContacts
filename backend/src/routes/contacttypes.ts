@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { getContactTypes } from '../controllers/contacttypes';
+import { getContactTypes, createContactType } from '../controllers/contacttypes';
 
 const router = Router();
 
-router.post('/');
+router.post('/', createContactType);
 
 router.get('/', getContactTypes);
 

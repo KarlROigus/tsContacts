@@ -12,7 +12,6 @@ const createPerson = async (req, res, next) => {
     try {
         const result = await connection_1.default.query('INSERT INTO persons (name) VALUES ($1) RETURNING id, name', [newPerson.name]);
         const createdPerson = new person_1.Person(result.rows[0].name, result.rows[0].id);
-        console.log(createdPerson);
         res.status(201).json(createdPerson);
     }
     catch (error) {
