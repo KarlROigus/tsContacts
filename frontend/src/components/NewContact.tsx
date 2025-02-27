@@ -24,7 +24,7 @@ const NewContact: React.FC<NewContactProps> = ({persons, contactTypes, onAddCont
         const value = contactValueInputRef.current!.value;
 
         if (value === "") {
-            alert("WHAT THE F?");
+            alert("WHAT THE F??");
             return;
         }
 
@@ -34,7 +34,7 @@ const NewContact: React.FC<NewContactProps> = ({persons, contactTypes, onAddCont
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-        <h2 className="text-xl font-semibold mb-4 text-gray-700">Add New Contact</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-700 ">Add New Contact</h2>
 
         <div className="mb-4">
             <label className="block text-gray-700 font-medium">Value:</label>

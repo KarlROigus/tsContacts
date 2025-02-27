@@ -13,6 +13,8 @@ const NewContactType: React.FC<NewContactTypeProps> = ({ onAddContactType }) => 
     const enteredType = typeInputRef.current!.value;
 
     onAddContactType(enteredType);
+
+    typeInputRef.current!.value = "";
   };
 
   return (

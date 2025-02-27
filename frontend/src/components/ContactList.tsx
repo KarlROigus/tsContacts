@@ -11,6 +11,7 @@ interface ContactListProps {
 const ContactList: React.FC<ContactListProps> = ({ contacts, persons, contactTypes, onAddContact }) => {
     return (
         <div className="p-6">
+            <NewContact persons={persons} contactTypes={contactTypes} onAddContact={onAddContact}/>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
                     <thead>
@@ -37,7 +38,7 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, persons, contactTyp
                 </table>
             </div>
         
-            <NewContact persons={persons} contactTypes={contactTypes} onAddContact={onAddContact}/>
+            
             
         </div>
     );
