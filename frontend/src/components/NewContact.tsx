@@ -8,7 +8,6 @@ interface NewContactProps {
 
 }
 
-
 const NewContact: React.FC<NewContactProps> = ({persons, contactTypes, onAddContact}) => {
 
     const personSelectRef = useRef<HTMLSelectElement>(null);
