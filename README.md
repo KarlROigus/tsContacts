@@ -8,7 +8,8 @@ To use:
 
 CREATE DATABASE your_database_name;<br>
 
-\q
-3. execute migrations file:<br>
+\q<br>
+
+3. execute migrations file with the following command:<br>
 
 psql -U your_username -d your_database_name -f migrations.sql
