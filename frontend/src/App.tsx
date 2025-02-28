@@ -7,81 +7,45 @@ import { ContactType } from './models/ContactType';
 import { Contact } from './models/Contact'
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { fetchContacts, fetchPersons, fetchContactTypes } from './utils/api';
 import './index.css'
-
 
 
 function App() {
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  
   const [persons, setPersons] = useState<Person[]>([]);
   const [contactTypes, setContactTypes] = useState<ContactType[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
-    const fetchContacts = async () => {
+    const fetchInitialData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/contacts");
-        if (!response.ok) throw new Error("Failed to fetch contacts");
-
-        const data = await response.json();
-
-        const contactList: Contact[] = data.contacts;
-
-        setContacts(contactList);
+        const [contactsData, personsData, contactTypesData] = await Promise.all([
+          fetchContacts(),
+          fetchPersons(),
+          fetchContactTypes(),
+        ]);
+  
+        setContacts(contactsData);
+        setPersons(personsData);
+        setContactTypes(contactTypesData);
       } catch (error) {
-        console.error("Error fetching contacts:", error);
+        console.error("Error fetching data:", error);
       }
     };
-    fetchContacts();
-  }, []);
-
-
-
-  useEffect(() => {
-    const fetchPersons = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/persons");
-        if (!response.ok) throw new Error("Failed to fetch persons");
-
-        const data = await response.json();
-
-        const personList: Person[] = data.persons;
-
-        setPersons(personList);
-      } catch (error) {
-        console.error("Error fetching persons:", error);
-      }
-    };
-    fetchPersons();
-  }, []);
-
-  useEffect(() => {
-    const fetchContactTypes = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/contacttypes');
-        if (!response.ok) throw new Error('Failed to fetch contact types');
-
-        const data = await response.json();
-
-        const contactTypeList: ContactType[] = data.contactTypes;
-
-        setContactTypes(contactTypeList);
-      } catch (error) {
-        console.error("Error fetching contacttypes: ", error);
-      }
-    
-    }
-
-    fetchContactTypes();
+  
+    fetchInitialData();
   }, []);
 
   const personAddHandler = async (name: string) => {
     const newPerson = { name };
 
-  
     try {
       
-      const response = await fetch("http://localhost:3000/persons", {
+      const response = await fetch(`${API_BASE_URL}/persons`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,11 +69,9 @@ function App() {
   const contactTypeAddHandler = async (type: string) => {
     
     const newContactType = { type };
-
-
     try {
 
-      const response = await fetch('http://localhost:3000/contacttypes', {
+      const response = await fetch(`${API_BASE_URL}/contacttypes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -122,9 +84,7 @@ function App() {
       }
 
       const addedContactType = await response.json();
-
       setContactTypes((prevContactTypes) => [...prevContactTypes, addedContactType]);
-
 
     } catch (e) {
       console.error("Error adding person:", e);
@@ -133,13 +93,11 @@ function App() {
 
   const onAddContact = async (chosenPersonId: string, chosenTypeId: string, value: string) => {
 
-
     const newContact = { value, chosenPersonId, chosenTypeId}
-    
-    
+        
     try {
 
-      const response = await fetch('http://localhost:3000/contacts', {
+      const response = await fetch(`${API_BASE_URL}/contacts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -151,12 +109,8 @@ function App() {
         throw new Error("Failed to add contact to backend");
       }
 
-      const addedContact = await response.json();
-
-      console.log(addedContact);
-
-      setContacts((prevContacts) => [...prevContacts, addedContact]);
-
+      const contacts = await fetchContacts();
+      setContacts(contacts);
 
     } catch (e) {
       console.error("Error adding person:", e);

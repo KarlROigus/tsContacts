@@ -77,7 +77,7 @@ const NewContact: React.FC<NewContactProps> = ({persons, contactTypes, onAddCont
         </div>
 
         <button
-            className="w-full bg-cyan-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
+            className="w-full bg-cyan-500 text-white p-2 rounded-lg hover:bg-cyan-600 transition"
             onClick={handleAddContact}
         >
             Add Contact

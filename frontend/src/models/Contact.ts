@@ -3,5 +3,4 @@ export interface Contact {
     value: string,
     personname: string,
     contacttypevalue: string
-
 }

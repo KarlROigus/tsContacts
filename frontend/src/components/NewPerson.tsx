@@ -11,7 +11,7 @@ const NewPerson: React.FC<NewPersonProps> = ({ onAddPerson }) => {
     event.preventDefault();
     const enteredName = nameInputRef.current!.value;
     onAddPerson(enteredName);
-    // nameInputRef.current!.value = "";
+    nameInputRef.current!.value = "";
   };
 
   return (
